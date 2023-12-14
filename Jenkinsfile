@@ -1,15 +1,12 @@
 node {
-    docker.image('node:16-buster-slim').withRun('-p 3000:3000').inside {
-	stage('Build') {
-	    dir('/home/dicoding/ci-cd/a428-cicd-labs'){
-	    	sh 'npm --version'
-            	sh 'npm install'
-	    }
-        }
-        stage('Test') {
-	    dir('/home/dicoding/ci-cd/a428-cicd-labs'){
-            	sh './jenkins/scripts/test.sh'
-	    }
-        }
+    checkout scm
+    stage('Build'){
+	docker.image('node:16-buster-slim').withRun('-p 3000:3000').inside {
+	    sh 'npm --version'
+	    sh 'npm install'
+	}
+    }
+    stage('Test'){
+	sh './jenkins/scripts/test.sh'
     }
 }
