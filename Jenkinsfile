@@ -1,6 +1,5 @@
 node {
-    docker.image('node:16-buster-slim').withRun('-p 3000:3000') {
-	checkout scm
+    docker.image('node:16-buster-slim').withRun('-p 3000:3000').inside {
 	stage('Build') {
 	    dir('/home/dicoding/ci-cd/a428-cicd-labs'){
 	    	sh 'npm --version'
