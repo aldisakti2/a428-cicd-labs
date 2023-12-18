@@ -9,11 +9,15 @@ node {
     	stage('Test'){
 	    sh './jenkins/scripts/test.sh'
     	}
-	
+
+	stage('Manual Approval'){
+	   input 'Lanjutkan ke tahap Deploy?'
+	}
+
 	stage('Deploy'){
-	   sh './jenkins/scripts/deliver.sh' 
-           input 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)' 
-           sh './jenkins/scripts/kill.sh' 
+	   sh './jenkins/scripts/deliver.sh'
+	   sh 'sleep 60'
+	   sh './jenkins/scripts/kill.sh'
 	}
     }
 }
